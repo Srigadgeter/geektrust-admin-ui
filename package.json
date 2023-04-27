@@ -14,7 +14,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "eslint:run": "npx eslint ./src/"
+    "eslint:run": "npx eslint ./src/",
+    "format": "prettier --write './**/*.{js, jsx, ts, tsx, css, scss, md, json}' --config ./.prettierrc"
   },
   "browserslist": {
     "production": [
