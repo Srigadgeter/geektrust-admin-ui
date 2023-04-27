@@ -15,7 +15,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "eslint:run": "npx eslint ./src/",
-    "format": "prettier --write './**/*.{js, jsx, ts, tsx, css, scss, md, json}' --config ./.prettierrc",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,scss,md,json}\" --config ./.prettierrc",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -40,10 +40,10 @@
     "*.{js,jsx}": [
       "eslint --fix"
     ],
-    "src/**/*.{js,jsx,ts,tsx,css,scss,md,json}": [
+    "**/*.{js,jsx,ts,tsx,css,scss,md,json}": [
       "prettier --write"
     ]
-  }, 
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -55,5 +55,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }  
+  }
 }
