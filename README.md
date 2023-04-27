@@ -1,3 +1,3 @@
-### Geektrust Platform Challenge
+# Geektrust Platform Challenge
 
 Challenge Name: **ADMIN UI**
