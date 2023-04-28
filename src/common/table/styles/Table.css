@@ -66,6 +66,7 @@
 .deleteBtn {
   border: none;
   color: white;
+  margin: 10px 0;
   cursor: pointer;
   font-size: 10px;
   padding: 11px 20px;
