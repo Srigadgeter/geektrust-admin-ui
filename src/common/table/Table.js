@@ -14,6 +14,8 @@ const Table = ({
   columns = [],
   records = [],
   recordsPerPage,
+  searchFields = [],
+  showSearch = false,
   isSelectable = false,
   showRowActions = false,
   showPagination = false
@@ -23,6 +25,9 @@ const Table = ({
   const [selections, setSelections] = useState([]);
   const [isSelectedAll, setSelectedAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchedText, setSearchedText] = useState("");
+  const [dataBeforeSearch, setDataBeforeSearch] = useState([]);
+  const [isInSearchContext, setIsInSearchContext] = useState(false);
 
   // Handler helps to change the state of the select all checkbox in the header
   // It helps to keep UI in sync
@@ -66,6 +71,17 @@ const Table = ({
     });
     const removedNulls = filteredData.filter((item) => item);
     setData(removedNulls);
+
+    if (showSearch && isInSearchContext) {
+      const filteredDataBeforeSearch = dataBeforeSearch.map((item) => {
+        if (selections.some((id) => id === item?.id)) return null;
+        return item;
+      });
+      const removedNullsInData = filteredDataBeforeSearch.filter((item) => item);
+      setDataBeforeSearch(removedNullsInData);
+    }
+
+    // Clear the selections once the delete operation completes
     setSelections([]);
   };
 
@@ -79,6 +95,10 @@ const Table = ({
   const handleRowDelete = (id) => {
     const filteredData = data.filter((item) => item?.id !== id);
     setData(filteredData);
+    if (showSearch && isInSearchContext) {
+      const filteredDataBeforeSearch = dataBeforeSearch.filter((item) => item?.id !== id);
+      setDataBeforeSearch(filteredDataBeforeSearch);
+    }
   };
 
   useEffect(() => {
@@ -94,8 +114,35 @@ const Table = ({
   }, [currentPage]);
 
   useEffect(() => {
+    if (searchedText) {
+      let currentData;
+      if (!isInSearchContext) {
+        currentData = [...data];
+        setDataBeforeSearch(currentData);
+        setIsInSearchContext(true);
+      } else {
+        currentData = [...dataBeforeSearch];
+        setDataBeforeSearch(currentData);
+      }
+
+      if (searchFields.length > 0) {
+        const searchResult = currentData.filter((item) =>
+          searchFields.some((field) =>
+            item[field].toLowerCase().includes(searchedText.toLowerCase())
+          )
+        );
+        setData(searchResult);
+      }
+    } else if (isInSearchContext) {
+      setData(dataBeforeSearch);
+      setIsInSearchContext(false);
+      setDataBeforeSearch([]);
+    }
+  }, [searchedText]);
+
+  useEffect(() => {
     const pageCount = Math.ceil(data.length / recordsPerPage);
-    const page = currentPage <= pageCount ? currentPage : pageCount;
+    const page = (currentPage <= pageCount ? currentPage : pageCount) || 1;
     refreshPageData(page);
     setCurrentPage(page);
   }, [data]);
@@ -104,9 +151,13 @@ const Table = ({
     <div className="table">
       <TableHeader
         columns={columns}
+        showSearch={showSearch}
+        searchFields={searchFields}
+        searchedText={searchedText}
         isSelectable={isSelectable}
         showActions={showRowActions}
         isSelectedAll={isSelectedAll}
+        setSearchedText={setSearchedText}
         handleSelectAll={handleSelectAll}
       />
       <TableBody

@@ -1,0 +1,32 @@
+.search {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.searchField {
+  width: 100%;
+  color: gray;
+  outline: none;
+  font-size: 12px;
+  padding: 8px 27px;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+}
+
+.searchField:focus {
+  border-color: #0075ff;
+}
+
+.searchIcon {
+  left: 8px;
+  color: gray;
+  font-size: 11px;
+  position: absolute;
+}
+
+.clearIcon {
+  right: 8px;
+  color: gray;
+  position: absolute;
+}

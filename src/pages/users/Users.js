@@ -15,12 +15,14 @@ const Users = () => {
 
   return (
     <Table
+      showSearch
       isSelectable
       showRowActions
       showPagination
       columns={columns}
       records={UserData}
       recordsPerPage={RECORDS_PER_PAGE}
+      searchFields={["name", "email", "role"]}
     />
   );
 };
