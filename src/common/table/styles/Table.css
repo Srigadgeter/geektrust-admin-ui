@@ -1,0 +1,93 @@
+.table {
+  width: max-content;
+}
+
+.tableHeader {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableRow,
+.tableColumns {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  border-bottom: 1px solid darkgray;
+}
+
+.tableColumns {
+  border-bottom-width: 2px;
+}
+
+.tableRow:nth-child(even) {
+  background-color: rgba(231, 230, 230, 0.295);
+}
+
+.tableRow:hover {
+  background-color: lightgray;
+}
+
+.tableRow.selected {
+  background-color: #0075ff80;
+}
+
+.tableRow.last {
+  border-bottom: none;
+}
+
+.tableColumn {
+  min-width: 150px;
+  max-width: 150px;
+  padding: 10px 20px;
+  text-transform: capitalize;
+}
+
+.tableSelection {
+  min-width: auto;
+}
+
+.makeBold {
+  font-weight: 900;
+}
+
+.showEllipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tableFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-top: 2px solid darkgray;
+}
+
+.deleteBtn {
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 10px;
+  padding: 11px 20px;
+  text-align: center;
+  border-radius: 30px;
+  text-decoration: none;
+  display: inline-block;
+  background-color: crimson;
+}
+
+.deleteBtn:disabled {
+  opacity: 0.5;
+}
+
+.actionIcon:not(:first-child) {
+  margin-left: 10px;
+}
+
+.actionEdit {
+  color: darkslategray;
+}
+
+.actionDelete {
+  color: crimson;
+}
