@@ -23,6 +23,10 @@ const Users = () => {
       records={UserData}
       recordsPerPage={RECORDS_PER_PAGE}
       searchFields={["name", "email", "role"]}
+      editOptions={{
+        name: "text",
+        email: "email"
+      }}
     />
   );
 };

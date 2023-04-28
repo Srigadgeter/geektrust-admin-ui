@@ -10,6 +10,7 @@ const TableBody = ({
   rows,
   columns,
   selections,
+  editOptions,
   isSelectable,
   handleRowEdit,
   showRowActions,
@@ -31,6 +32,7 @@ const TableBody = ({
         row={row}
         columns={columns}
         key={`row-${index + 1}`}
+        editOptions={editOptions}
         isSelectable={isSelectable}
         handleRowEdit={handleRowEdit}
         showRowActions={showRowActions}

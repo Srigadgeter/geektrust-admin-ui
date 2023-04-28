@@ -35,6 +35,13 @@
   border-bottom: none;
 }
 
+.tableRow.edit {
+  background-color: white;
+  border: 1px solid #0075ff;
+  border-left: none;
+  border-right: none;
+}
+
 .tableColumn {
   min-width: 150px;
   max-width: 150px;
@@ -93,6 +100,14 @@
   color: crimson;
 }
 
+.actionSave {
+  color: limegreen;
+}
+
+.actionCancel {
+  color: crimson;
+}
+
 .noRows {
   display: flex;
   align-items: center;
@@ -112,4 +127,17 @@
 
 .noDataText {
   font-size: 20px;
+}
+
+.editField {
+  width: 100%;
+  color: gray;
+  outline: none;
+  font-size: 12px;
+  border-radius: 3px;
+  border: 1px solid lightgray;
+}
+
+.editField:focus {
+  border-color: #0075ff;
 }

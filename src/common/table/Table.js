@@ -14,6 +14,7 @@ const Table = ({
   columns = [],
   records = [],
   recordsPerPage,
+  editOptions = [],
   searchFields = [],
   showSearch = false,
   isSelectable = false,
@@ -90,15 +91,27 @@ const Table = ({
   };
 
   // Handler helps to edit the individual record in the table
-  const handleRowEdit = (id) => {
-    console.warn("edit id >>", id);
-    // TODO: Work on edit functionality
+  const handleRowEdit = (rowData) => {
+    const filteredData = data.map((item) => {
+      if (item?.id === rowData?.id) return rowData;
+      return item;
+    });
+    setData(filteredData);
+
+    if (showSearch && isInSearchContext) {
+      const filteredDataBeforeSearch = dataBeforeSearch.map((item) => {
+        if (item?.id === rowData?.id) return rowData;
+        return item;
+      });
+      setDataBeforeSearch(filteredDataBeforeSearch);
+    }
   };
 
   // Handler helps to delete the individual record in the table
   const handleRowDelete = (id) => {
     const filteredData = data.filter((item) => item?.id !== id);
     setData(filteredData);
+
     if (showSearch && isInSearchContext) {
       const filteredDataBeforeSearch = dataBeforeSearch.filter((item) => item?.id !== id);
       setDataBeforeSearch(filteredDataBeforeSearch);
@@ -170,6 +183,7 @@ const Table = ({
         rows={rows}
         columns={columns}
         selections={selections}
+        editOptions={editOptions}
         isSelectable={isSelectable}
         handleRowEdit={handleRowEdit}
         showRowActions={showRowActions}
