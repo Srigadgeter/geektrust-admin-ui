@@ -91,3 +91,24 @@
 .actionDelete {
   color: crimson;
 }
+
+.noRows {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.noData {
+  display: flex;
+  color: gray;
+  align-items: center;
+  flex-direction: column;
+}
+
+.noDataIcon {
+  font-size: 50px;
+}
+
+.noDataText {
+  font-size: 20px;
+}

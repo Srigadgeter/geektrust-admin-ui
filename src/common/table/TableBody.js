@@ -17,7 +17,15 @@ const TableBody = ({
   handleRowSelection,
   recordsPerPage = RECORDS_PER_PAGE
 }) => (
-  <div className="tableBody" style={{ minHeight: `${recordsPerPage * 40}px` }}>
+  <div
+    className={`tableBody ${rows.length === 0 ? "noRows" : ""}`}
+    style={{ minHeight: `${recordsPerPage * 40}px` }}>
+    {rows.length === 0 && (
+      <div className="noData">
+        <span className="noDataIcon bi bi-box2" />
+        <span className="noDataText">No data to be shown</span>
+      </div>
+    )}
     {rows.map((row, index) => (
       <TableRow
         row={row}
