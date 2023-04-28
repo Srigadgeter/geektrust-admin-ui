@@ -21,7 +21,9 @@ const Table = ({
   showPagination = false
 }) => {
   const [data, setData] = useState(records);
-  const [rows, setRows] = useState(data.slice(0, recordsPerPage));
+  const [rows, setRows] = useState(
+    showPagination && recordsPerPage ? data.slice(0, recordsPerPage) : data
+  );
   const [selections, setSelections] = useState([]);
   const [isSelectedAll, setSelectedAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,13 +56,15 @@ const Table = ({
   // Helper function helps to refresh the table data
   // It helps to keep UI in sync
   const refreshPageData = (page) => {
-    const start = (page - 1) * recordsPerPage;
-    const end = page * recordsPerPage;
-    const currentPageData = data.slice(start, end);
-    // Set records for the page
-    setRows(currentPageData);
-    // Clear the selections while page change
-    setSelections([]);
+    if (showPagination && recordsPerPage) {
+      const start = (page - 1) * recordsPerPage;
+      const end = page * recordsPerPage;
+      const currentPageData = data.slice(start, end);
+      // Set records for the page
+      setRows(currentPageData);
+      // Clear the selections while page change
+      setSelections([]);
+    }
   };
 
   // Handler helps to delete all the selected records
@@ -106,11 +110,11 @@ const Table = ({
   }, [selections]);
 
   useEffect(() => {
-    setCurrentPage(1);
+    if (showPagination && recordsPerPage) setCurrentPage(1);
   }, [recordsPerPage]);
 
   useEffect(() => {
-    refreshPageData(currentPage);
+    if (showPagination && recordsPerPage) refreshPageData(currentPage);
   }, [currentPage]);
 
   useEffect(() => {
@@ -141,10 +145,12 @@ const Table = ({
   }, [searchedText]);
 
   useEffect(() => {
-    const pageCount = Math.ceil(data.length / recordsPerPage);
-    const page = (currentPage <= pageCount ? currentPage : pageCount) || 1;
-    refreshPageData(page);
-    setCurrentPage(page);
+    if (showPagination && recordsPerPage) {
+      const pageCount = Math.ceil(data.length / recordsPerPage);
+      const page = (currentPage <= pageCount ? currentPage : pageCount) || 1;
+      refreshPageData(page);
+      setCurrentPage(page);
+    } else setRows(data);
   }, [data]);
 
   return (
